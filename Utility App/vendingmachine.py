@@ -221,11 +221,11 @@ def addchecklist(category, number):         #adds item to the checklist and lets
     if number in category:
         item = category[number]
         if (int(item["stock"]) > 0):        #checks the stock number
-            Checklist.append({"name": item["name"], "price": item["price"]})
+            Checklist.append({"name": item["name"], "price": item["price"]}) #adds item to cart
             (item["stock"]) -= 1                                            #reduces stock when item is selected
             print(f"{item['name']} has been added to cart!")
         else:
-            print(f"Sorry, {item['name']} is out of stock. It will be restocked shortly!")
+            print(f"Sorry, {item['name']} is out of stock. It will be restocked shortly!") #displays when items are out of stock
     else:
         print("Invalid code. Please try again.")
 
@@ -274,15 +274,18 @@ while True:
             total = totalprice()                      
             print (f"Your total is ${total}")
             Item_pay = (input("Please enter your payment: ")) #asks user to input payment
-            Item_pay = int(Item_pay)
-            if Item_pay >= total:
-                Item_return = (Item_pay) - (total)
-                print(f"Your change is ${Item_return}")  #prints out the change
-                print ("Please collect your item from below. Thank you! Come again!!")
-            if Item_pay == (total):
-                print ("Please collect your item from below. Thank you! Come again!!")
-            if Item_pay <= (total):
-                print ("insuffient funds...")
+            try:
+                Item_pay = int(Item_pay)
+                if Item_pay > total:
+                    Item_return = (Item_pay) - (total)
+                    print(f"Your change is ${Item_return}")  #prints out the change
+                    print ("Please collect your item from below. Thank you! Come again!!") #displays to show items have been dispenced
+                if Item_pay == (total):
+                    print ("Please collect your item from below. Thank you! Come again!!")
+                if Item_pay < (total):
+                    print ("insuffient funds...")
+            except ValueError:
+                print ("Please enter whole numbers only")
         break
 
 
